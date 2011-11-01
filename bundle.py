@@ -61,7 +61,8 @@ class APIBundle(Bundle):
                 methods = url[1].get('methods', ['GET'])
                 host, converted_url, args = convert_url(self.path + u)
                 yield {'name': name, 'host': host, 'url': converted_url,
-                       'methods': methods, 'args': args, 'desc': view.__doc__}
+                       'methods': methods, 'args': args, 'desc': view.__doc__,
+                       'path': name.split('.')}
 
 
 class MethodCaller(object):
