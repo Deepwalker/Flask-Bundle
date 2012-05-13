@@ -10,7 +10,7 @@ def read(fname):
 
 setupconf = dict(
     name = 'flask_bundle',
-    version = '0.2',
+    version = '0.3',
     license = 'BSD',
     url = 'https://github.com/Deepwalker/flask_bundle/',
     author = 'Svarga team, Deepwalker',

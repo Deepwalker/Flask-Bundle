@@ -16,7 +16,7 @@ class Bundle(routing.Submount):
     def __init__(self, name, path):
         self.name = name
         self.endpoints = {}
-        self.special = None
+        self.leaf = None # Special workaround to be able add (path + '') url
 
         self.path = path
         self.rules = list(self._get_rules())
@@ -25,15 +25,16 @@ class Bundle(routing.Submount):
     def _get_rules(self):
         for name in dir(self):
             view = getattr(self, name)
-            if hasattr(view, '_urls'):
-                endpoint = self.endpoint_name(name)
-                self.endpoints[endpoint] = view
-                for url, kwargs in view._urls:
-                    if url == '':
-                        self.special = routing.Rule(
-                                 self.path, endpoint = endpoint, **kwargs)
-                        continue
-                    yield routing.Rule(url, endpoint = endpoint, **kwargs)
+            if not hasattr(view, '_urls'):
+                continue
+            endpoint = self.endpoint_name(name)
+            self.endpoints[endpoint] = view
+            for url, kwargs in view._urls:
+                if url == '':
+                    self.leaf = routing.Rule(
+                             self.path, endpoint = endpoint, **kwargs)
+                    continue
+                yield routing.Rule(url, endpoint = endpoint, **kwargs)
 
     def endpoint_name(self, name):
         return '%s.%s' % (self.name, name)
@@ -44,8 +45,8 @@ class Bundle(routing.Submount):
     def push_bundle(self, app):
         self.app = app
         app.url_map.add(self)
-        if self.special:
-            app.url_map.add(self.special)
+        if self.leaf:
+            app.url_map.add(self.leaf)
         for endpoint, view in self.endpoints.iteritems():
             app.endpoint(endpoint)(self.wrapper(view))
 
