@@ -1,6 +1,10 @@
 from werkzeug import routing
 from . import Bundle
 
+"""
+API Bundle is bundle that generate some JSON
+description about endpoints.
+"""
 
 class APIBundle(Bundle):
 

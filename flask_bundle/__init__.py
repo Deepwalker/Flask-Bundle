@@ -16,7 +16,9 @@ class Bundle(routing.Submount):
     def __init__(self, name, path):
         self.name = name
         self.endpoints = {}
+        self.special = None
 
+        self.path = path
         self.rules = list(self._get_rules())
         super(Bundle, self).__init__(path, self.rules)
 
@@ -27,6 +29,10 @@ class Bundle(routing.Submount):
                 endpoint = self.endpoint_name(name)
                 self.endpoints[endpoint] = view
                 for url, kwargs in view._urls:
+                    if url == '':
+                        self.special = routing.Rule(
+                                 self.path, endpoint = endpoint, **kwargs)
+                        continue
                     yield routing.Rule(url, endpoint = endpoint, **kwargs)
 
     def endpoint_name(self, name):
@@ -38,6 +44,8 @@ class Bundle(routing.Submount):
     def push_bundle(self, app):
         self.app = app
         app.url_map.add(self)
+        if self.special:
+            app.url_map.add(self.special)
         for endpoint, view in self.endpoints.iteritems():
             app.endpoint(endpoint)(self.wrapper(view))
 

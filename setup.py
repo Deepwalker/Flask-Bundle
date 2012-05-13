@@ -10,23 +10,25 @@ def read(fname):
 
 setupconf = dict(
     name = 'flask_bundle',
-    version = '0.1',
+    version = '0.2',
     license = 'BSD',
     url = 'https://github.com/Deepwalker/flask_bundle/',
     author = 'Svarga team, Deepwalker',
     author_email = 'krivushinme@gmail.com',
-    description = ('Class based tool that behave like blueprints'),
+    description = ('Class based tool that behaves like blueprints'),
     long_description = read('README.rst'),
-    keywords = 'validatation form forms data schema',
-
-    packages = ['trafaret'],
-
+    keywords = 'flask bundle',
+    include_package_data = True,
+    install_requires = ['Flask'],
+    packages = ['flask_bundle'],
+    download_url = 'git+git://github.com/Deepwalker/flask_bundle.git#egg=flask_bundle-dev',
     classifiers = [
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
+        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
+        'Topic :: Software Development :: Libraries :: Python Modules',
         ],
     )
 

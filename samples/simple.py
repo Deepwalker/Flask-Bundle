@@ -12,7 +12,7 @@ class Room(api.APIBundle):
     @expose('/<int:id>')
     def get(self, id):
         "Return room info"
-        return {}
+        return {'id': id}
 
     @expose('/<int:id>/message', methods=['POST'])
     def post_message(self, id):
@@ -28,4 +28,4 @@ for m in apis:
     print m
 
 print api_generated.room.get.__dict__
-#print 'API call result', api.room.get(id=1)
+#print 'API call result:', api_generated.room.get(id=1)
