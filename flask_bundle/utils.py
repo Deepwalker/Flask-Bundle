@@ -44,9 +44,9 @@ def encode_result(encoders):
                 return Response(mime, 406)
             res = view(*a, **kw)
             if isinstance(res, tuple):
-                res = (encoder.encode(res[0]),) + res[1:]
+                res = (encoder.encode(res[0], mime=mime),) + res[1:]
             else:
-                res = (encoder.encode(res), )
+                res = (encoder.encode(res, mime=mime), )
             return Response(*res, content_type=mime)
         return inner
     return wrapper
@@ -59,6 +59,6 @@ class JSONEncoder(object):
         "Return list of mime types supported by encoder"
         return ('application/json', )
 
-    def encode(self, data):
+    def encode(self, data, mime=None):
         "Encode given data"
         return json.dumps(data)
