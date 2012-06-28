@@ -9,10 +9,10 @@ def read(fname):
 
 
 setupconf = dict(
-    name = 'flask_bundle',
-    version = '0.3',
+    name = 'Flask-Bundle',
+    version = '0.4',
     license = 'BSD',
-    url = 'https://github.com/Deepwalker/flask_bundle/',
+    url = 'https://github.com/Deepwalker/Flask-Bundle/',
     author = 'Svarga team, Deepwalker',
     author_email = 'krivushinme@gmail.com',
     description = ('Class based tool that behaves like blueprints'),
@@ -21,7 +21,7 @@ setupconf = dict(
     include_package_data = True,
     install_requires = ['Flask'],
     packages = ['flask_bundle'],
-    download_url = 'git+git://github.com/Deepwalker/flask_bundle.git#egg=flask_bundle-dev',
+    download_url = 'git+git://github.com/Deepwalker/Flask-Bundle.git#egg=Flask-Bundle-dev',
     classifiers = [
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
